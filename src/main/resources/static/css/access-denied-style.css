@@ -1,0 +1,31 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.3rem;
+    border: 2px solid black;
+    width: 30rem;
+    margin-inline: auto;
+    margin-top: 10rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+h1{
+    color: red;
+}
+
+.card-container a{
+    margin: 1rem;
+     background: #3e5fd6;
+     color: white;
+     border: none;
+     text-decoration: none;
+     padding: 1rem;
+     border-radius: 0.2rem;
+}

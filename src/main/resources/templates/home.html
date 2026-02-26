@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+                xmlns:sec="https://www.thymeleaf.org/extras/spring-securiry">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/header-style.css}">
+    <link rel="stylesheet" th:href="@{/css/home-page-style.css}">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            Employee Management
+        </div>
+        <div class="user-section">
+                <span class="welcome-text">
+                    Welcome, <span th:text="${#authentication.name}">Username</span>
+                </span>
+
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+
+    </header>
+
+    <div class="wrapper">
+
+        <div class="home-intro">
+            <h1>Dashboard</h1>
+            <p>Manage Employees and Departments from one place.</p>
+        </div>
+
+        <div class="card" >
+            <a th:href="@{/employee/viewEmployees}">View Employee</a>
+        </div>
+        <div class="card" >
+            <a th:href="@{/employee/showEmployeeForm}">Add Employee</a>
+        </div>
+        <div class="card" >
+            <a th:href="@{/department/showDepartmentTable}">View Department</a>
+        </div>
+        <div class="card" >
+            <a th:href="@{/department/showDepartmentForm}">Add Department</a>
+        </div>
+    </div>
+
+
+</body>
+</html>

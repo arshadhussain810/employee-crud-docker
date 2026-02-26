@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Department</title>
+    <link rel="stylesheet" th:href="@{/css/header-style.css}">
+    <link rel="stylesheet" th:href="@{/css/dept-form-style.css}">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            View Employee
+        </div>
+        <div class="user-section">
+                <span class="welcome-text">
+                    Welcome, <span th:text="${#authentication.name}">Username</span>
+                </span>
+
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+
+    </header>
+
+    <section>
+        <div class="form-container">
+
+            <form th:action="@{/department/saveDepartment}" method="post" th:object="${department}">
+                <div class="error-container">
+                    <div th:if="${#fields.hasErrors('departmentCode')}"  th:errors="*{departmentCode}" class="error"></div><br>
+                    <div th:if="${#fields.hasErrors('name')}"  th:errors="*{name}" class="error"></div>
+                </div>
+
+                <input type="hidden" th:field="*{id}">
+                <div class="form-group">
+                    <label for="dept-code">Department Code</label>
+                    <input type="text" id="dept-code" th:field="*{departmentCode}">
+                </div>
+
+                <div class="form-group">
+                    <label for="dept-name">Name</label>
+                    <input type="text" id="dept-name" th:field="*{name}">
+                </div>
+
+                <div class="form-group">
+                    <label for="dept-description">Description</label>
+                    <textarea  id="dept-description" th:field="*{description}"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save">
+                    <a th:href="@{/employee/home}">Back</a>
+                </div>
+                <input type="hidden" id="successFlag" th:value="${success}">
+                <input type="hidden" id="successMessage" th:value="${message}">
+            </form>
+
+        </div>
+    </section>
+
+    <div id="successPopup" class="popup hidden">
+        <span id="popupMessage" >Save Successfully</span>
+        <button type="button" onclick="closePopup()">Ok</button>
+    </div>
+
+    <script th:src="@{/script/popup.js}"></script>
+</body>
+</html>

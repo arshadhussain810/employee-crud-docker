@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+                xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>View Employee</title>
+    <link rel="stylesheet" th:href="@{/css/header-style.css}">
+    <link rel="stylesheet" th:href="@{/css/view-employees-style.css}">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            View Employee
+        </div>
+        <div class="user-section">
+            <span class="welcome-text">
+                Welcome, <span th:text="${#authentication.name}">Username</span>
+            </span>
+
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+    </header>
+
+    <section>
+        <div class="wrapper">
+            <div class="search-container">
+                <form th:action="@{/employee/searchEmployee}" method="get">
+                    <span>Search type </span>
+                    <select name="searchType" >
+                        <option value="" selected disabled>--Select type--</option>
+                        <option value="Id">Employee Id</option>
+                        <option value="name">First name</option>
+                    </select>
+
+                    <input type="text" name="value" placeholder="Enter value">
+
+                    <input type="submit" value="Search">
+                    <a th:href="@{/employee/home}" class="back-button">Back</a>
+                </form>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                    <th style="width: 3%">id</th>
+                    <th style="width: 10%">First Name</th>
+                    <th style="width: 10%">Last Name</th>
+                    <th style="width: 15%">Email</th>
+                    <th style="width: 5%">Status</th>
+                    <th style="width: 15%">Department</th>
+                    <th style="width: 12%">Action</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="tempEmpl: ${employees}">
+                        <td th:text="${tempEmpl.id}"></td>
+                        <td th:text="${tempEmpl.firstName}"></td>
+                        <td th:text="${tempEmpl.lastName}"></td>
+                        <td th:text="${tempEmpl.email}"></td>
+                        <td th:text="${tempEmpl.status}"></td>
+                        <td th:text="${tempEmpl.department.name}"></td>
+                        <td>
+                            <a th:href="@{/employee/editEmployee(emplId=${tempEmpl.id})}" class="action-button">Edit</a>
+                            <a th:href="@{/employee/deleteEmployee(emplId=${tempEmpl.id})}" class="action-button"
+                               onclick="return confirm('This will delete the employee from the system, continue?')"
+                               sec:authorize="hasRole('ADMIN')" >Delete</a>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+</body>
+
+</html>

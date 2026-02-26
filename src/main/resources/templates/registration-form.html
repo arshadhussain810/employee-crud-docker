@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" th:href="@{/css/registration-form-style.css}">
+</head>
+<body>
+
+
+
+    <div class="form-container">
+        <div class="logo"><span>Create Account</span></div>
+        <form th:action="@{/handelRegistratinForm}" method="post" th:object="${user}">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="field-wrapper">
+                    <input type="text" id="username" th:field="*{username}" style="text-transform: uppercase;">
+                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="field-wrapper">
+                    <input type="text" id="password" th:field="*{password}">
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Select Role</label>
+                <div class="field-wrapper">
+                    <select name="roleId" id="role" required>
+                        <option value="" disabled selected >--select role--</option>
+                        <option th:each="tempRole : ${roles}"
+                                th:value="${tempRole.id}"
+                                th:text="${tempRole.name}"></option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Register">
+                <a th:href="@{/showLoginPage}">Back</a>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Form</title>
+    <link rel="stylesheet" th:href="@{/css/header-style.css}">
+    <link rel="stylesheet" th:href="@{/css/employee-form-style.css}">
+</head>
+<body>
+<header class="header">
+    <div class="logo">
+        Employee Form
+    </div>
+    <div class="user-section">
+                <span class="welcome-text">
+                    Welcome, <span th:text="${#authentication.name}">Username</span>
+                </span>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+
+</header>
+
+<section>
+    <div class="form-container">
+        <form th:action="@{/employee/saveEmployee}" th:object="${employee}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <div class="field-wrapper">
+                    <input type="text" id="first-name" th:field="*{firstName}">
+                    <!--<div th:if="${#fields.hasErrors('name')}"  th:errors="*{name}" class="error"></div>-->
+                    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error-message"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <div class="field-wrapper">
+                    <input type="text" id="last-name" th:field="*{lastName}">
+                    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error-message"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <div class="field-wrapper">
+                    <input type="text" id="email" th:field="*{email}">
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></span>
+                </div>
+
+
+            </div>
+
+            <div class="form-group">
+                <label for="data-of-joining">Joining Date</label>
+                <div class="field-wrapper">
+                    <input type="date" id="data-of-joining" th:field="*{dateOfJoining}" >
+                    <span th:if="${#fields.hasErrors('dateOfJoining')}" th:errors="*{dateOfJoining}" class="error-message"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <div class="field-wrapper">
+                    <select th:field="*{status}" id="status" >
+                        <option value="" disabled selected>--select status--</option>
+                        <option th:value="active">Active</option>
+                        <option th:value="inactive">Inactive</option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="error-message"></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="depart">Department</label>
+                <div class="field-wrapper">
+                    <select name="departmentId" id="depart" required>
+                        <option value="" disabled selected>--select department--</option>
+                        <option th:each="dept : ${department}"
+                                th:value="${dept.Id}"
+                                th:selected="${employee.department != null and dept.id == employee.department.id}"
+                                th:text="${dept.name}"></option> <!--th:select is for the edit page to work-->
+                    </select>
+                    <span th:if="${#fields.hasErrors('department')}" th:errors="*{department}" class="error-message"></span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="save">
+                <a th:href="@{/employee/home}">Back</a>
+            </div>
+
+
+
+        </form>
+    </div>
+</section>
+
+<div id="successPopup" class="popup hidden">
+    <span id="popupMessage" >Save Successfully</span>
+    <button type="button" onclick="closePopup()">Ok</button>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+                xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Departments</title>
+    <link rel="stylesheet" th:href="@{/css/header-style.css}">
+    <link rel="stylesheet" th:href="@{/css/view-department-style.css}">
+</head>
+<body>
+<header class="header">
+    <div class="logo">
+        View Employee
+    </div>
+    <div class="user-section">
+            <span class="welcome-text">
+                Welcome, <span th:text="${#authentication.name}">Username</span>
+            </span>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+</header>
+<section>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 5%">Id</th>
+                    <th style="width: 5%">Code</th>
+                    <th style="width: 10%">Name</th>
+                    <th style="width: 65%">Description</th>
+                    <th style="width: 15%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="department : ${departmentList}">
+                    <td th:text="${department.id}"></td>
+                    <td th:text="${department.departmentCode}"></td>
+                    <td th:text="${department.name}"></td>
+                    <td th:text="${department.description}"></td>
+                    <td>
+                        <a th:href="@{/department/editDepartment(id=${department.id})}"  class="action-button">Edit</a>
+                        <a th:href="@{/department/deleteDepartment(id=${department.id})}"  class="action-button"
+                           onclick="return confirm('This will delete the department from the system, continue?')"
+                           sec:authorize="hasRole('ADMIN')">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</section>
+
+<div class="back-button">
+    <a th:href="@{/employee/home}">Back</a>
+</div>
+</body>
+</html>
