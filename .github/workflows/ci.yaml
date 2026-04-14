@@ -30,12 +30,12 @@ jobs:
 
       #Step-4: Waiting for environment to get ready
       - name: Wait for environment
-        run: sleep 30
+        run: sleep 40
 
       #Step-5: Run Junit and Mock tests
       - name: Run Integration test
         env:
-          SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/employeecruddb
+          SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3307/employeecruddb
           SPRING_DATASOURCE_USERNAME: user123
           SPRING_DATASOURCE_PASSWORD: user123
           SPRING_JPA_HIBERNATE_DDL_AUTO: update
