@@ -26,11 +26,11 @@ jobs:
 
       #Step-3 : Running the container(App + <MySql)/verifies if docker compose is okay
       - name: Start container
-        run: docker compose up -d --build
+        run: docker-compose up -d --build
 
       #Step-4: Waiting for environment to get ready
       - name: Wait for environment
-        run: sleep 40
+        run: sleep 120
 
       #Step-5: Run Junit and Mock tests
       - name: Run Integration test
