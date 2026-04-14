@@ -26,7 +26,7 @@ jobs:
 
       #Step-3 : Running the container(App + <MySql)/verifies if docker compose is okay
       - name: Start container
-        run: docker-compose up -d --build
+        run: docker compose up -d --build
 
       #Step-4: Waiting for environment to get ready
       - name: Wait for environment
@@ -35,7 +35,7 @@ jobs:
       #Step-5: Run Junit and Mock tests
       - name: Run Integration test
         env:
-          SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3307/employeecruddb
+          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3307/employeecruddb
           SPRING_DATASOURCE_USERNAME: user123
           SPRING_DATASOURCE_PASSWORD: user123
           SPRING_JPA_HIBERNATE_DDL_AUTO: update
