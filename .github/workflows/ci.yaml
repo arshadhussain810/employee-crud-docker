@@ -48,7 +48,7 @@ jobs:
       #step-7: Cleanup
       - name: Stop Environment
         if: always()
-        run: docker-compose down
+        run: docker compose down
 
 
 
