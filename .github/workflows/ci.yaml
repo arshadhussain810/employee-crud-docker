@@ -9,31 +9,24 @@ on:
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
-
-
     steps:
-      #Step-1 : Pull the code from your repository onto the Ubuntu runner
-      - name: Checkout Code
+      - name: Checkout Code         #Step-1 : Pull the code from your repository onto the Ubuntu runner
         uses: actions/checkout@v4
 
-      #Step-2 : #Step-1 : Pull the code from your repository onto the Ubuntu runner
-      - name: Set up Jdk 21
+      - name: Set up Jdk 21         #Step-2 : #Step-1 : Pull the code from your repository onto the Ubuntu runner
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
 
-      #Step-3 : Running the container(App + <MySql)/verifies if docker compose is okay
-      - name: Start container
+      - name: Start container      #Step-3 : Running the container(App + <MySql)/verifies if docker compose is okay
         run: docker compose up -d --build
 
-      #Step-4: Waiting for environment to get ready
-      - name: Wait for environment
+      - name: Wait for environment #Step-4: Waiting for environment to get ready
         run: sleep 120
 
-      #Step-5: Run Junit and Mock tests
-      - name: Run Integration test
+      - name: Run Integration test #Step-5: Run Junit and Mock tests
         env:
           SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3307/employeecruddb
           SPRING_DATASOURCE_USERNAME: user123
