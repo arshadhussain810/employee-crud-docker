@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:             # Used when pod goes down and k8 wants to create a new one - label for the new pod
+    metadata:
+      labels:
+        app: mysql
+    spec:               # Instructions when creating new pods
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: mysql-password
+            - name: MYSQL_DATABASE
+              value: "employees"
+          ports:
+            - containerPort: 3306

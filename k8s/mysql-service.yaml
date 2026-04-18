@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql #Should match the wait script
+spec:
+  selector:
+    app: mysql           # This MUST match the label in your MySQL Deployment
+  ports:
+    - protocol: TCP
+      port: 3306         # The port the Service listens on
+      targetPort: 3306   # The port the MySQL Container is actually using
