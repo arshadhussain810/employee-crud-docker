@@ -42,17 +42,3 @@ jobs:
       - name: Stop Environment
         if: always()
         run: docker compose down
-
-
-
-
-
-
-
-
-
-
-
-
-
-
